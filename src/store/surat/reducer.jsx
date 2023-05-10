@@ -13,7 +13,6 @@ const initialSate = {
 };
 
 const suratReducers = (state = initialSate, action) => {
-  console.log('action', action);
   switch (action.type) {
     case GET_ALL_SURAT_JALAN_REQUEST:
       return (state = {
