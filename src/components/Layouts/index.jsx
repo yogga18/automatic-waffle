@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import { Fragment } from 'react';
+import Footer from '../Footer';
+import Navigation from '../Navigation';
 
 const Layout = ({ children }) => {
   return (
     <Fragment>
-      <h1>Header</h1>
+      <Navigation />
       {children}
-      <h1>Footer</h1>
+      <Footer />
     </Fragment>
   );
 };
