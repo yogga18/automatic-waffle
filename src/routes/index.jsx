@@ -6,6 +6,8 @@ import CreateUser from '../pages/Users/CreateUser';
 import Users from '../pages/Users';
 import UserDetail from '../pages/Users/UserDetail';
 import SegmentasiUsers from '../pages/Users/SegmentasiUsers';
+import Login from '../pages/Auth/Login';
+import Register from '../pages/Auth/Register';
 
 const RoutesIndex = () => {
   return (
@@ -20,6 +22,8 @@ const RoutesIndex = () => {
         <Route path='/users-count' element={<SegmentasiUsers />} />
         <Route path='/users-male' element={<SegmentasiUsers />} />
         <Route path='/users-female' element={<SegmentasiUsers />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>

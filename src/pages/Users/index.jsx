@@ -1,4 +1,4 @@
-import { getAllSuratJalan } from '../../store/surat/action';
+import { getAllUsers } from '../../store/users/action';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cards from '../../components/Card';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import { toast } from 'react-toastify';
 import Layout from '../../components/Layouts';
+import { genderCheck } from '../../utils';
 
 const Users = () => {
   const navigate = useNavigate();
@@ -16,13 +17,13 @@ const Users = () => {
 
   const dispatch = useDispatch();
 
-  const { suratJalanReducer } = useSelector((state) => state.suratReducers);
+  const { getAllUsersReducers } = useSelector((state) => state.usersReducers);
 
   const exportXlsx = () => {
-    if (suratJalanReducer.data.length === 0) {
+    if (getAllUsersReducers.data.length === 0) {
       return toast.warning('Oppss... Data is empty');
     } else {
-      const sheet = suratJalanReducer.data.map((item, index) => ({
+      const sheet = getAllUsersReducers.data.map((item, index) => ({
         No: index + 1,
         Nama: item.name || '-',
         Nip: item.nip || '-',
@@ -31,6 +32,7 @@ const Users = () => {
         Prodi: item.prodi || '-',
         Email: item.email || '-',
         Alamat: item.address || '-',
+        Gender: genderCheck(item.gender) || '-',
       }));
 
       let wb = XLSX.utils.book_new();
@@ -41,7 +43,7 @@ const Users = () => {
   };
 
   const handleSearch = () => {
-    let users = suratJalanReducer.data.filter((item) => {
+    let users = getAllUsersReducers.data.filter((item) => {
       return item.name.toLowerCase().includes(userName.toLowerCase());
     });
 
@@ -50,10 +52,8 @@ const Users = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllSuratJalan());
+    dispatch(getAllUsers());
   }, []);
-
-  console.log(suratJalanReducer);
 
   return (
     <Layout>
@@ -63,7 +63,7 @@ const Users = () => {
             onClick={() => {
               exportXlsx();
             }}
-            disabled={suratJalanReducer.isLoading}
+            disabled={getAllUsersReducers.isLoading}
             className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded hover:text-white transition duration-700 ease-in-out'
             title='Exprot to Excel'
           >
@@ -73,7 +73,7 @@ const Users = () => {
             onClick={() => {
               navigate('/create-user');
             }}
-            disabled={suratJalanReducer.isLoading}
+            disabled={getAllUsersReducers.isLoading}
             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:text-white transition duration-700 ease-in-out'
             title='Create a New User'
           >
@@ -132,10 +132,14 @@ const Users = () => {
         </div>
 
         <div className='flex justify-center align-middle px-5'>
-          {suratJalanReducer.isLoading ? <p>Loading</p> : null}
-          {!flagSearch && <Cards data={suratJalanReducer.data} />}
+          {getAllUsersReducers.isLoading ? <p>Loading</p> : null}
+          {!flagSearch && (
+            <Cards data={getAllUsersReducers.data} action={true} />
+          )}
           {flagSearch && userSearch.length === 0 && <p>Data Tidak Ditemukan</p>}
-          {flagSearch && userSearch.length !== 0 && <Cards data={userSearch} />}
+          {flagSearch && userSearch.length !== 0 && (
+            <Cards data={userSearch} action={true} />
+          )}
         </div>
       </div>
     </Layout>

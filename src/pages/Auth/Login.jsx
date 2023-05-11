@@ -1,11 +1,13 @@
 import Layout from '../../components/Layouts';
 
-const UpdateUser = () => {
+const Login = () => {
   return (
     <Layout>
-      <p>UpdateUser</p>
+      <div>
+        <p>Login</p>
+      </div>
     </Layout>
   );
 };
 
-export default UpdateUser;
+export default Login;

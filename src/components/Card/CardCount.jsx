@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const CardCount = ({ title, count, url }) => {
+const CardCount = ({ title, count, url, data }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(url);
+    navigate(url, { state: data });
   };
 
   return (
@@ -29,6 +29,7 @@ CardCount.propTypes = {
   title: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
+  data: PropTypes.any,
 };
 
 export default CardCount;

@@ -1,7 +1,7 @@
 import {
-  GET_ALL_SURAT_JALAN_REQUEST,
-  GET_ALL_SURAT_JALAN_SUCCESS,
-  GET_ALL_SURAT_JALAN_FAILURE,
+  GET_ALL_USERS_REQUEST,
+  GET_ALL_USERS_SUCCESS,
+  GET_ALL_USERS_FAILURE,
   GET_USER_BY_ID_REQUEST,
   GET_USER_BY_ID_SUCCESS,
   GET_USER_BY_ID_FAILURE,
@@ -15,9 +15,9 @@ import {
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
 } from './actionTypes';
-
+// getAllUsers
 const initialSate = {
-  suratJalanReducer: {
+  getAllUsersReducers: {
     isLoading: false,
     data: [],
     error: false,
@@ -44,35 +44,35 @@ const initialSate = {
   },
 };
 
-const suratReducers = (state = initialSate, action) => {
+const usersReducers = (state = initialSate, action) => {
   switch (action.type) {
-    case GET_ALL_SURAT_JALAN_REQUEST:
+    case GET_ALL_USERS_REQUEST:
       return (state = {
         ...state,
-        suratJalanReducer: {
-          ...state.suratJalanReducer,
+        getAllUsersReducers: {
+          ...state.getAllUsersReducers,
           isLoading: true,
           data: [],
           error: false,
         },
       });
 
-    case GET_ALL_SURAT_JALAN_SUCCESS:
+    case GET_ALL_USERS_SUCCESS:
       return (state = {
         ...state,
-        suratJalanReducer: {
-          ...state.suratJalanReducer,
+        getAllUsersReducers: {
+          ...state.getAllUsersReducers,
           isLoading: false,
           data: action.payload.data ?? [],
           error: false,
         },
       });
 
-    case GET_ALL_SURAT_JALAN_FAILURE:
+    case GET_ALL_USERS_FAILURE:
       return (state = {
         ...state,
-        suratJalanReducer: {
-          ...state.suratJalanReducer,
+        getAllUsersReducers: {
+          ...state.getAllUsersReducers,
           isLoading: false,
           data: [],
           error: action.payload.errorMessage,
@@ -216,4 +216,4 @@ const suratReducers = (state = initialSate, action) => {
   }
 };
 
-export default suratReducers;
+export default usersReducers;

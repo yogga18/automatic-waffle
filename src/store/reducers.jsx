@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import suratReducers from './surat/reducer';
+import usersReducers from './users/reducer';
 
 export default combineReducers({
-  suratReducers,
+  usersReducers,
 });

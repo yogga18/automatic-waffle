@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/Layouts';
 import { useEffect } from 'react';
-import { getUserById } from '../../store/surat/action';
+import { getUserById } from '../../store/users/action';
 import avatar from '../../assets/img/avatar.png';
 
 const UserDetail = () => {
@@ -10,7 +10,7 @@ const UserDetail = () => {
 
   const dispatch = useDispatch();
 
-  const { getUserByIdReducer } = useSelector((state) => state.suratReducers);
+  const { getUserByIdReducer } = useSelector((state) => state.usersReducers);
 
   useEffect(() => {
     dispatch(getUserById(id));

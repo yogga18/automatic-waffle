@@ -1,24 +1,25 @@
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../../store/surat/action';
+import { deleteUser } from '../../store/users/action';
 
-const Cards = ({ data }) => {
+const Cards = ({ data, action }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { deletUserReducer } = useSelector((state) => state.suratReducers);
 
   const handleUpdate = (user) => {
     navigate(`/update-user/${user.id}`);
   };
 
   const handleDelete = (user) => {
-    dispatch(deleteUser(user.id));
+    if (window.confirm('Are you sure to delete this user?')) {
+      dispatch(deleteUser(user.id)).then((respose) => {
+        if (respose.success) {
+          window.location.reload();
+        }
+      });
+    }
   };
-
-  // console.log('deletUserReducer', deletUserReducer);
-  console.log('data', data);
 
   return (
     <div className='w-full sm:mx-10 md:mx-40'>
@@ -55,53 +56,55 @@ const Cards = ({ data }) => {
             </div>
           </div>
           <hr className='border-t border-salt-300 my-3'></hr>
-          <div className='flex justify-end gap-3 align-middle pr-5'>
-            <button
-              onClick={() => {
-                handleDelete(user);
-              }}
-              title='Click to delete user'
-              className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded hover:text-white transition duration-700 ease-in-out'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
+          {action ? (
+            <div className='flex justify-end gap-3 align-middle pr-5'>
+              <button
+                onClick={() => {
+                  handleDelete(user);
+                }}
+                title='Click to delete user'
+                className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded hover:text-white transition duration-700 ease-in-out'
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0'
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0'
+                  />
+                </svg>
+              </button>
 
-            <button
-              onClick={() => {
-                handleUpdate(user);
-              }}
-              title='Click to update user'
-              className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded hover:text-white transition duration-700 ease-in-out'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
+              <button
+                onClick={() => {
+                  handleUpdate(user);
+                }}
+                title='Click to update user'
+                className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded hover:text-white transition duration-700 ease-in-out'
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125'
-                />
-              </svg>
-            </button>
-          </div>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125'
+                  />
+                </svg>
+              </button>
+            </div>
+          ) : null}
         </div>
       ))}
     </div>
@@ -110,6 +113,7 @@ const Cards = ({ data }) => {
 
 Cards.propTypes = {
   data: PropTypes.array.isRequired,
+  action: PropTypes.bool.isRequired,
 };
 
 export default Cards;

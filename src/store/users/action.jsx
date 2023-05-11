@@ -1,9 +1,9 @@
 import apiInstance from '../../api';
 
 import {
-  GET_ALL_SURAT_JALAN_REQUEST,
-  GET_ALL_SURAT_JALAN_SUCCESS,
-  GET_ALL_SURAT_JALAN_FAILURE,
+  GET_ALL_USERS_REQUEST,
+  GET_ALL_USERS_SUCCESS,
+  GET_ALL_USERS_FAILURE,
   GET_USER_BY_ID_REQUEST,
   GET_USER_BY_ID_SUCCESS,
   GET_USER_BY_ID_FAILURE,
@@ -18,10 +18,10 @@ import {
   CREATE_USER_FAILURE,
 } from './actionTypes';
 
-export const getAllSuratJalan = () => {
+export const getAllUsers = () => {
   return async (dispatch) => {
     dispatch({
-      type: GET_ALL_SURAT_JALAN_REQUEST,
+      type: GET_ALL_USERS_REQUEST,
       payload: {
         loading: true,
         data: [],
@@ -33,7 +33,7 @@ export const getAllSuratJalan = () => {
       const res = await apiInstance.get('/users');
 
       dispatch({
-        type: GET_ALL_SURAT_JALAN_SUCCESS,
+        type: GET_ALL_USERS_SUCCESS,
         payload: {
           loading: false,
           data: res.data.data,
@@ -42,7 +42,7 @@ export const getAllSuratJalan = () => {
       });
     } catch (error) {
       dispatch({
-        type: GET_ALL_SURAT_JALAN_FAILURE,
+        type: GET_ALL_USERS_FAILURE,
         payload: {
           loading: false,
           data: [],
@@ -99,8 +99,6 @@ export const createUsers = (payload) => {
       },
     });
 
-    console.log('createUsers', payload);
-
     try {
       const res = await apiInstance.post('/users', payload);
 
@@ -112,6 +110,8 @@ export const createUsers = (payload) => {
           errorMessage: false,
         },
       });
+
+      return { success: true };
     } catch (error) {
       dispatch({
         type: CREATE_USER_FAILURE,
@@ -121,6 +121,8 @@ export const createUsers = (payload) => {
           errorMessage: error.message,
         },
       });
+
+      return { success: false };
     }
   };
 };
@@ -147,6 +149,9 @@ export const updateUser = (id, payload) => {
           errorMessage: false,
         },
       });
+
+      // custom response (flag success)
+      return { success: true };
     } catch (error) {
       dispatch({
         type: UPDATE_USER_FAILURE,
@@ -156,6 +161,9 @@ export const updateUser = (id, payload) => {
           errorMessage: error.message,
         },
       });
+
+      // custom response (flag failure)
+      return { success: false };
     }
   };
 };
@@ -182,6 +190,8 @@ export const deleteUser = (id) => {
           errorMessage: false,
         },
       });
+
+      return { success: true };
     } catch (error) {
       dispatch({
         type: DELET_USER_FAILURE,
@@ -191,6 +201,8 @@ export const deleteUser = (id) => {
           errorMessage: error.message,
         },
       });
+
+      return { success: false };
     }
   };
 };
