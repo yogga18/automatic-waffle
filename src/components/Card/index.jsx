@@ -46,7 +46,7 @@ const Cards = ({ data }) => {
               <p>Fakultas : {user.fakultas}</p>
               <p>Prodi : {user.prodi}</p>
             </div>
-            <div className='blcok md:hidden lg:hidden xl:hidden'>
+            <div className='blcok md:hidden lg:hidden xl:hidden flex flex-col gap-1 items-center w-full'>
               <p>Nama : {user.name}</p>
               <p>NIP : {user.nip}</p>
               <p>Institusi : {user.institusi}</p>

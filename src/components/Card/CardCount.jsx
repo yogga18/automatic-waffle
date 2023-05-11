@@ -15,7 +15,7 @@ const CardCount = ({ title, count, url }) => {
           handleNavigate();
         }}
         className='cursor-pointer bg-white p-5 rounded-md h-26 w-36 shadow-lg zinc-600/50
-        transition duration-700 ease-in-out hover:bg-gray-400 hover:text-white'
+        transition duration-700 ease-in-out hover:bg-gray-200'
       >
         <p className='font-bold text-xl'>{count}</p>
         <hr />

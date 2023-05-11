@@ -16,32 +16,108 @@ const UserDetail = () => {
     dispatch(getUserById(id));
   }, []);
 
-  console.log('getUserByIdReducer', getUserByIdReducer.data);
-
   return (
     <Layout>
       <div className='container mx-auto'>
         {getUserByIdReducer.isLoading ? (
           <p>Loading...</p>
         ) : (
-          <div className='w-full h-full bg-slate-500 my-16 py-5 px-44'>
-            <p>sss</p>
-            {/* <div className='bg-white'>
-              <div className='flex'>
-                <div className='bg-blue-200 w-11/12'>
-                  <h1 className='text-start font-bold text-blue-800'>
+          // make me a responsive card please
+          <div className='flex flex-col md:flex-row justify-center items-center my-24'>
+            <div className='w-full md:w-1/3 '>
+              <div className=' shadow-lg rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2'>
+                <div className='flex justify-center'>
+                  <img
+                    src={avatar}
+                    alt='avatar'
+                    className='w-40 h-40 rounded-full'
+                  />
+                </div>
+
+                <div className='flex flex-col justify-center align-middle items-center my-5'>
+                  <p className='text-2xl font-bold'>
                     {getUserByIdReducer.data.name}
-                  </h1>
-                  <h1 className='text-start font-thin text-blue-800'>
-                    Program Studi {getUserByIdReducer.data.prodi}
-                  </h1>
+                  </p>
+                  <p className='text-xl font-bold'>
+                    {getUserByIdReducer.data.nip}
+                  </p>
                 </div>
-                <div>
-                  <img src={avatar} alt='blank_avatar' className='w-32 h-32' />
+
+                <div className='flex justify-between'>
+                  <div>
+                    <p className='text-xl font-thin'>Institusi</p>
+                  </div>
+                  <div>
+                    <p className='text-xl font-thin'>
+                      {getUserByIdReducer.data.institusi}
+                    </p>
+                  </div>
                 </div>
+                <hr className='mb-3' />
+
+                <div className='flex justify-between'>
+                  <div>
+                    <p className='text-xl font-thin'>Fakultas</p>
+                  </div>
+                  <div>
+                    <p className='text-xl font-thin'>
+                      {getUserByIdReducer.data.fakultas}
+                    </p>
+                  </div>
+                </div>
+                <hr className='mb-3' />
+
+                <div className='flex justify-between'>
+                  <div>
+                    <p className='text-xl font-thin'>Prodi</p>
+                  </div>
+                  <div>
+                    <p className='text-xl font-thin'>
+                      {getUserByIdReducer.data.prodi}
+                    </p>
+                  </div>
+                </div>
+                <hr className='mb-3' />
+
+                <div className='flex justify-between'>
+                  <div>
+                    <p className='text-xl font-thin'>Email</p>
+                  </div>
+                  <div>
+                    <p className='text-xl font-thin'>
+                      {getUserByIdReducer.data.email}
+                    </p>
+                  </div>
+                </div>
+                <hr className='mb-3' />
+
+                <div className='flex justify-between'>
+                  <div>
+                    <p className='text-xl font-thin'>Alamat</p>
+                  </div>
+                  <div>
+                    <p className='text-xl font-thin'>
+                      {getUserByIdReducer.data.address}
+                    </p>
+                  </div>
+                </div>
+                <hr className='mb-3' />
+
+                <div className='flex justify-between'>
+                  <div>
+                    <p className='text-xl font-thin'>Gender</p>
+                  </div>
+                  <div>
+                    <p className='text-xl font-thin'>
+                      {getUserByIdReducer.data.gender === 'L'
+                        ? 'Laki - laki'
+                        : 'Perempuan'}
+                    </p>
+                  </div>
+                </div>
+                <hr />
               </div>
-              <div className='flex'></div>
-            </div> */}
+            </div>
           </div>
         )}
       </div>

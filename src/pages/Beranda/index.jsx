@@ -26,7 +26,7 @@ const Beranda = () => {
 
   return (
     <Layout>
-      <div>
+      <div className='mt-16'>
         <div>
           <h1>
             <b>User</b>
