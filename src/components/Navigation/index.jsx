@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import MobileNav from './MobileNav';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const path = window.location.pathname;
 
   return (
-    <nav className='fixed top-0 w-full flex justify-between px-5 h-12 bg-gradient-to-r from-green-800 to-green-600 pt-2'>
+    <nav className='fixed top-0 w-full flex justify-between px-5 h-12 bg-gradient-to-r from-green-800 to-green-600 pt-2 z-50'>
       <div
         className='cursor-pointer text-white hover:text-gray-400 transition duration-700 ease-in-out'
         onClick={() => {
@@ -14,7 +15,7 @@ const Navigation = () => {
       >
         SIMPEG
       </div>
-      <ul className='flex gap-3'>
+      <ul className='hidden md:flex gap-3'>
         <li
           className='cursor-pointer  text-white hover:text-gray-400 transition duration-700 ease-in-out'
           onClick={() => {
@@ -35,13 +36,16 @@ const Navigation = () => {
           <li
             className='cursor-pointer text-white hover:text-gray-400 transition duration-700 ease-in-out'
             onClick={() => {
-              navigate('/users');
+              navigate('/login');
             }}
           >
             <b>Login</b>
           </li>
         ) : null}
       </ul>
+      <div className='block md:hidden cursor-pointer'>
+        <MobileNav />
+      </div>
     </nav>
   );
 };
