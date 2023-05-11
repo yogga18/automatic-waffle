@@ -3,7 +3,9 @@ import Layout from '../../components/Layouts';
 const LandingPage = () => {
   return (
     <Layout>
-      <h1 className='text-3xl font-bold underline'>Landing Page</h1>
+      <div className='container'>
+        <p>oke</p>
+      </div>
     </Layout>
   );
 };

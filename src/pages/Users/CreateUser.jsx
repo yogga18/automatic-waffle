@@ -22,12 +22,15 @@ const CreateUser = () => {
       prodi: values.prodi,
       email: values.email,
       address: values.address,
+      gender: values.gender,
     };
 
     if (id) {
       dispatch(updateUser(id, payload));
+      // console.log('payload', payload);
     } else {
       dispatch(createUsers(payload));
+      // console.log('payload', payload);
     }
   };
 
@@ -42,6 +45,7 @@ const CreateUser = () => {
       prodi: getUserByIdReducer.data.prodi || '',
       email: getUserByIdReducer.data.email || '',
       address: getUserByIdReducer.data.address || '',
+      gender: getUserByIdReducer.data.gender || '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Required'),
@@ -51,6 +55,7 @@ const CreateUser = () => {
       prodi: Yup.string().required('Required'),
       email: Yup.string().required('Required').email('Invalid Email'),
       address: Yup.string().required('Required'),
+      gender: Yup.string().required('Required'),
     }),
     onSubmit: handelSubmit,
   });
@@ -59,7 +64,7 @@ const CreateUser = () => {
     dispatch(getUserById(id));
   }, []);
 
-  console.log('getUserByIdReducer', getUserByIdReducer.data.id);
+  console.log('getUserByIdReducer', getUserByIdReducer.data);
 
   return (
     <Layout>
@@ -113,6 +118,19 @@ const CreateUser = () => {
                 <p className='text-danger'>{formik.errors.institusi}</p>
               )}
             </div>
+
+            <div className='form-group'>
+              <select
+                name='gender'
+                value={formik.values.gender}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              >
+                <option value=''>-- Select Gender --</option>
+                <option value='P'>Perempuan</option>
+                <option value='L'>Laki-Laki</option>
+              </select>
+            </div>
           </div>
 
           <div className='flex gap-3 flex-col'>
@@ -163,24 +181,22 @@ const CreateUser = () => {
                 <p className='text-danger'>{formik.errors.email}</p>
               )}
             </div>
-          </div>
-        </div>
 
-        <div className='flex justify-center align-middle mt-12'>
-          <div className='form-group'>
-            <label htmlFor='address'>Address</label>
-            <textarea
-              name='address'
-              type='text'
-              placeholder='Address'
-              className='form-control'
-              value={formik.values.address}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.address && formik.errors.address && (
-              <p className='text-danger'>{formik.errors.address}</p>
-            )}
+            <div className='form-group'>
+              <label htmlFor='address'>Address</label>
+              <textarea
+                name='address'
+                type='text'
+                placeholder='Address'
+                className='form-control'
+                value={formik.values.address}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.address && formik.errors.address && (
+                <p className='text-danger'>{formik.errors.address}</p>
+              )}
+            </div>
           </div>
         </div>
 

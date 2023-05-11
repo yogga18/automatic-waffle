@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
-import { Fragment } from 'react';
 import Footer from '../Footer';
 import Navigation from '../Navigation';
 
 const Layout = ({ children }) => {
   return (
-    <Fragment>
+    <div className='flex flex-col min-h-screen'>
       <Navigation />
-      {children}
+      <main className='flex-1 h-fit'>{children}</main>
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 
