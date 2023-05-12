@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Cards from '../../components/Card';
 import Layout from '../../components/Layouts';
 import * as XLSX from 'xlsx';
-import { genderCheck } from '../../utils';
+import { genderCheck, isActiveCheck } from '../../utils';
 
 const SegmentasiUsers = () => {
   const location = useLocation();
@@ -23,6 +23,7 @@ const SegmentasiUsers = () => {
         Email: item.email || '-',
         Alamat: item.address || '-',
         Gender: genderCheck(item.gender) || '-',
+        Active: isActiveCheck(item.active) || '-',
       }));
 
       let wb = XLSX.utils.book_new();

@@ -17,13 +17,30 @@ const Beranda = () => {
   const perempuan =
     getAllUsersReducers.data.filter((item) => item.gender === 'P') || [];
 
+  const userActive =
+    getAllUsersReducers.data.filter((item) => item.active === 1) || [];
+
+  const userIjinBelajar =
+    getAllUsersReducers.data.filter((item) => item.active === 2) || [];
+
+  const userNonAktif =
+    getAllUsersReducers.data.filter((item) => item.active === 0) || [];
+
   const lakiLakiCount = lakiLaki.length || 0;
 
   const perempuanCount = perempuan.length || 0;
 
+  const userActiveCount = userActive.length || 0;
+
+  const userIjinBelajarCount = userIjinBelajar.length || 0;
+
+  const userNonAktifCount = userNonAktif.length || 0;
+
   useEffect(() => {
     dispatch(getAllUsers());
   }, []);
+
+  console.log('getAllUsersReducers', getAllUsersReducers);
 
   return (
     <Layout>
@@ -35,7 +52,7 @@ const Beranda = () => {
           <hr />
           <div className='flex gap-3 flex-wrap m-5'>
             <CardCount
-              title={'Jumlah Dosen'}
+              title={'Jumlah User'}
               count={count}
               url={'/users-count'}
               data={getAllUsersReducers.data}
@@ -51,6 +68,24 @@ const Beranda = () => {
               count={perempuanCount}
               url={'/users-female'}
               data={perempuan}
+            />
+            <CardCount
+              title={'User Aktif'}
+              count={userActiveCount}
+              url={'/users-active'}
+              data={userActive}
+            />
+            <CardCount
+              title={'Ijin Belajar'}
+              count={userIjinBelajarCount}
+              url={'/users-ijin-belajar'}
+              data={userIjinBelajar}
+            />
+            <CardCount
+              title={'Non Aktif'}
+              count={userNonAktifCount}
+              url={'/users-ijin-belajar'}
+              data={userNonAktif}
             />
           </div>
         </div>

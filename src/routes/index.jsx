@@ -22,6 +22,8 @@ const RoutesIndex = () => {
         <Route path='/users-count' element={<SegmentasiUsers />} />
         <Route path='/users-male' element={<SegmentasiUsers />} />
         <Route path='/users-female' element={<SegmentasiUsers />} />
+        <Route path='/users-active' element={<SegmentasiUsers />} />
+        <Route path='/users-ijin-belajar' element={<SegmentasiUsers />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='*' element={<NotFound />} />

@@ -25,6 +25,7 @@ const CreateUser = () => {
       email: values.email,
       address: values.address,
       gender: values.gender,
+      active: values.active,
     };
 
     if (id) {
@@ -66,6 +67,7 @@ const CreateUser = () => {
       email: getUserByIdReducer.data.email || '',
       address: getUserByIdReducer.data.address || '',
       gender: getUserByIdReducer.data.gender || '',
+      active: getUserByIdReducer.data.active || '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Required'),
@@ -76,6 +78,7 @@ const CreateUser = () => {
       email: Yup.string().required('Required').email('Invalid Email'),
       address: Yup.string().required('Required'),
       gender: Yup.string().required('Required'),
+      active: Yup.string().required('Required'),
     }),
     onSubmit: handelSubmit,
   });
@@ -86,196 +89,259 @@ const CreateUser = () => {
 
   return (
     <Layout>
-      <div className='w-full h-full mx-auto my-24'>
-        <h5 className='text-start mx-5'>
-          {id ? 'Update User' : 'Create User'}
-        </h5>
-        <form
-          onSubmit={formik.handleSubmit}
-          className='bg-white rounded-lg shadow-lg w-3/4 sm:w-1/2 mx-auto p-4'
-        >
-          <div className='flex flex-col sm:flex-row justify-evenly gap-3 align-middle items-center'>
-            <div className='flex gap-3 flex-col'>
-              <div className='form-group flex flex-col'>
-                <label htmlFor='name' className='text-white font-bold'>
-                  <p className='text-black'>
-                    Name <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <input
-                  name='name'
-                  type='text'
-                  placeholder='Name'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.name && formik.errors.name && (
-                  <p className='text-red-500'>{formik.errors.name}</p>
-                )}
+      <div className='flex justify-center align-middle items-center py-24'>
+        <div className='w-full max-w-lg'>
+          {id ? (
+            <p className='text-center my-3 font-bold'>
+              Update <b className='text-yellow-400'>User</b>
+            </p>
+          ) : (
+            <p className='text-center my-3 font-bold'>
+              Create a <b className='text-blue-400'>New User</b>
+            </p>
+          )}
+
+          <form
+            onSubmit={formik.handleSubmit}
+            className='bg-gray-100 shadow-md rounded px-5 pt-5 pb-5 mb-4'
+          >
+            <div className='flex justify-between gap-3'>
+              <div>
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Name <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='name'
+                    type='text'
+                    placeholder='Name'
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.name && formik.errors.name && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.name}
+                    </p>
+                  )}
+                </div>
+
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      NIP <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='nip'
+                    type='text'
+                    placeholder='NIP'
+                    value={formik.values.nip}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.nip && formik.errors.nip && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.nip}
+                    </p>
+                  )}
+                </div>
+
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Institusi <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='institusi'
+                    type='text'
+                    placeholder='Institusi'
+                    value={formik.values.institusi}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.institusi && formik.errors.institusi && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.institusi}
+                    </p>
+                  )}
+                </div>
+
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Gender <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <select
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='gender'
+                    value={formik.values.gender}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value='' disabled>
+                      -- Select Gender --
+                    </option>
+                    <option value='P'>Perempuan</option>
+                    <option value='L'>Laki-Laki</option>
+                  </select>
+                  {formik.touched.gender && formik.errors.gender && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.gender}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              <div className='form-group flex flex-col'>
-                <label htmlFor='nip' className='text-white font-bold'>
-                  <p className='text-black'>
-                    NIP <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <input
-                  name='nip'
-                  type='text'
-                  placeholder='NIP'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                  value={formik.values.nip}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.nip && formik.errors.nip && (
-                  <p className='text-red-500'>{formik.errors.nip}</p>
-                )}
-              </div>
+              <div>
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Fakultas <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='fakultas'
+                    type='text'
+                    placeholder='Fakultas'
+                    value={formik.values.fakultas}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
 
-              <div className='form-group flex flex-col'>
-                <label htmlFor='institusi' className='text-white font-bold'>
-                  <p className='text-black'>
-                    Institusi <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <input
-                  name='institusi'
-                  type='text'
-                  placeholder='Institusi'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                  value={formik.values.institusi}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.institusi && formik.errors.institusi && (
-                  <p className='text-red-500'>{formik.errors.institusi}</p>
-                )}
-              </div>
+                  {formik.touched.fakultas && formik.errors.fakultas && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.fakultas}
+                    </p>
+                  )}
+                </div>
 
-              <div className='form-group flex flex-col'>
-                <label htmlFor='gender' className='text-white font-bold'>
-                  <p className='text-black'>
-                    Gender <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <select
-                  name='gender'
-                  value={formik.values.gender}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                >
-                  <option value=''>-- Select Gender --</option>
-                  <option value='P'>Perempuan</option>
-                  <option value='L'>Laki-Laki</option>
-                </select>
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Program Studi <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='prodi'
+                    type='text'
+                    placeholder='Prodi'
+                    value={formik.values.prodi}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  {formik.touched.prodi && formik.errors.prodi && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.prodi}
+                    </p>
+                  )}
+                </div>
+
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Email <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='email'
+                    type='email'
+                    placeholder='Email'
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  {formik.touched.email && formik.errors.email && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.email}
+                    </p>
+                  )}
+                </div>
+
+                <div className='mb-4'>
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    <p className='text-black'>
+                      Active <b className='text-red-500'>*</b>
+                    </p>
+                  </label>
+                  <select
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    name='active'
+                    value={formik.values.active}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value='' disabled>
+                      -- isActive --
+                    </option>
+                    <option value={1}>Aktif</option>
+                    <option value={0}>Non - Aktif</option>
+                    <option value={2}>Ijin Belajar</option>
+                  </select>
+                  {formik.touched.active && formik.errors.active && (
+                    <p className='text-red-500 text-xs italic'>
+                      {formik.errors.active}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-
-            <div className='flex gap-3 flex-col'>
-              <div className='form-group flex flex-col'>
-                <label htmlFor='fakultas' className='text-white font-bold'>
-                  <p className='text-black'>
-                    Fakultas <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <input
-                  name='fakultas'
-                  type='text'
-                  placeholder='Fakultas'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                  value={formik.values.fakultas}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.fakultas && formik.errors.fakultas && (
-                  <p className='text-red-500'>{formik.errors.fakultas}</p>
-                )}
-              </div>
-
-              <div className='form-group flex flex-col'>
-                <label htmlFor='prodi' className='text-white font-bold'>
-                  <p className='text-black'>
-                    Prodi <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <input
-                  name='prodi'
-                  type='text'
-                  placeholder='Prodi'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                  value={formik.values.prodi}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.prodi && formik.errors.prodi && (
-                  <p className='text-red-500'>{formik.errors.prodi}</p>
-                )}
-              </div>
-
-              <div className='form-group flex flex-col'>
-                <label htmlFor='email' className='text-white font-bold'>
-                  <p className='text-black'>
-                    Email <b className='text-red-500'>*</b>
-                  </p>
-                </label>
-                <input
-                  name='email'
-                  type='email'
-                  placeholder='Email'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.email && formik.errors.email && (
-                  <p className='text-red-500'>{formik.errors.email}</p>
-                )}
-              </div>
-
-              <div className='form-group flex flex-col'>
-                <label htmlFor='Address' className='text-white font-bold'>
+            <div className='flex'>
+              <div className='mb-4 w-full h-full'>
+                <label className='block text-gray-700 text-sm font-bold mb-2'>
                   <p className='text-black'>
                     Address <b className='text-red-500'>*</b>
                   </p>
                 </label>
                 <textarea
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='address'
                   type='text'
                   placeholder='Address'
-                  className='form-control py-2 px-3 rounded-lg shadow-md bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-gray-50'
                   value={formik.values.address}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
+
                 {formik.touched.address && formik.errors.address && (
-                  <p className='text-red-500'>{formik.errors.address}</p>
+                  <p className='text-red-500 text-xs italic'>
+                    {formik.errors.address}
+                  </p>
                 )}
               </div>
             </div>
-          </div>
-          <div className='flex justify-end mt-3'>
-            {id ? (
-              <button
-                type='submit'
-                className='bg-yellow-500 text-white hover:bg-yellow-400 hover:text-black rounded-full py-2 px-3 font-bold transition duration-700 ease-in-out'
-              >
-                Update
-              </button>
-            ) : (
-              <button
-                type='submit'
-                className='bg-blue-500 text-white hover:bg-blue-400 hover:text-black rounded-full py-2 px-3 font-bold transition duration-700 ease-in-out'
-              >
-                Submit
-              </button>
-            )}
-          </div>
-        </form>
+
+            <div className='flex justify-end mt-3'>
+              {id ? (
+                <button
+                  type='submit'
+                  className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                >
+                  Update
+                </button>
+              ) : (
+                <button
+                  type='submit'
+                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                >
+                  Submit
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     </Layout>
   );
