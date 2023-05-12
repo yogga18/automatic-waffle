@@ -28,6 +28,23 @@ const Cards = ({ data, action }) => {
           key={user.id}
           className='bg-white shadow-md hover:bg-slate-200 transition duration-700 ease-in-out my-5 rounded-md py-5'
         >
+          <div className='flex justify-end mb-3'>
+            <span
+              className={`inline-block rounded-md text-gray-600 ${
+                user.active === 0
+                  ? 'bg-red-300'
+                  : user.active === 1
+                  ? 'bg-green-300'
+                  : 'bg-yellow-300'
+              } px-2 py-1 text-xs font-bold mr-3`}
+            >
+              {user.active === 0
+                ? 'Non - Aktif'
+                : user.active === 1
+                ? 'Aktif'
+                : 'Ijin Belajar'}
+            </span>
+          </div>
           <div
             className='cursor-pointer px-10 flex justify-between items-center align-middle'
             onClick={() => {
