@@ -33,18 +33,16 @@ const Login = () => {
   };
 
   const handleSubmit = (values) => {
-    const encryptedToken = encLocalStrg(values);
-
     const userIsExist = checkUserIsExist(values);
 
-    console.log('userIsEcist', userIsExist);
+    if (userIsExist.nip === values.nip) {
+      const encryptedToken = encLocalStrg(values);
 
-    if (!userIsExist) {
-      alert('User tidak ditemukan');
-      toast.error('NIP tidak ditemukan');
-    } else {
       localStorage.setItem('user', encryptedToken);
       window.location.href = '/beranda';
+    } else {
+      alert('User tidak ditemukan');
+      toast.error('NIP tidak ditemukan');
     }
   };
 
@@ -142,7 +140,7 @@ const Login = () => {
                 className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
                 href='/register'
               >
-                Sign Up
+                Register
               </a>
             </div>
           </form>
