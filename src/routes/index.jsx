@@ -8,6 +8,7 @@ import UserDetail from '../pages/Users/UserDetail';
 import SegmentasiUsers from '../pages/Users/SegmentasiUsers';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
+import SuratIjin from '../pages/SuratIjin';
 
 const RoutesIndex = () => {
   return (
@@ -26,6 +27,7 @@ const RoutesIndex = () => {
         <Route path='/users-ijin-belajar' element={<SegmentasiUsers />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/surat-ijin' element={<SuratIjin />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>

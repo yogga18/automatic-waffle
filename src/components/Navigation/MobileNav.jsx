@@ -57,6 +57,13 @@ const MobileNav = () => {
         >
           Users
         </ResponsiveNavLink>
+        <ResponsiveNavLink
+          href='/users'
+          className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+          activeClassName='bg-gray-100 text-gray-900'
+        >
+          Surat Ijin
+        </ResponsiveNavLink>
         <div className='w-full h-px bg-gray-300 my-1' />
         {path === '/' ? (
           <ResponsiveNavLink

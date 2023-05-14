@@ -32,6 +32,14 @@ const Navigation = () => {
         >
           <b>Users</b>
         </li>
+        <li
+          className='cursor-pointer text-white hover:text-gray-400 transition duration-700 ease-in-out'
+          onClick={() => {
+            navigate('/surat-ijin');
+          }}
+        >
+          <b>Surat Ijin</b>
+        </li>
         {path === '/' || path === '/login' || path === '/register' ? (
           <li
             className='cursor-pointer text-white hover:text-gray-400 transition duration-700 ease-in-out'
