@@ -3,9 +3,15 @@ import ResponsiveNavLink from './ResponsiveNavLink';
 
 const MobileNav = () => {
   const [open, setOpen] = useState(false);
+  const path = window.location.pathname;
 
   const handleOpen = () => {
     setOpen(!open);
+  };
+
+  const funcLogout = () => {
+    localStorage.removeItem('user');
+    window.location.href = '/';
   };
 
   return (
@@ -52,13 +58,24 @@ const MobileNav = () => {
           Users
         </ResponsiveNavLink>
         <div className='w-full h-px bg-gray-300 my-1' />
-        <ResponsiveNavLink
-          href='/login'
-          className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-          activeClassName='bg-gray-100 text-gray-900'
-        >
-          Login
-        </ResponsiveNavLink>
+        {path === '/' ? (
+          <ResponsiveNavLink
+            href='/login'
+            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+            activeClassName='bg-gray-100 text-gray-900'
+          >
+            Login
+          </ResponsiveNavLink>
+        ) : (
+          <ResponsiveNavLink
+            href='/login'
+            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+            activeClassName='bg-gray-100 text-gray-900'
+            funcLogout={funcLogout}
+          >
+            Logout
+          </ResponsiveNavLink>
+        )}
       </div>
     </>
   );

@@ -32,7 +32,7 @@ const Navigation = () => {
         >
           <b>Users</b>
         </li>
-        {path === '/' ? (
+        {path === '/' || path === '/login' || path === '/register' ? (
           <li
             className='cursor-pointer text-white hover:text-gray-400 transition duration-700 ease-in-out'
             onClick={() => {
@@ -41,7 +41,17 @@ const Navigation = () => {
           >
             <b>Login</b>
           </li>
-        ) : null}
+        ) : (
+          <li
+            className='cursor-pointer text-white hover:text-gray-400 transition duration-700 ease-in-out'
+            onClick={() => {
+              localStorage.removeItem('user');
+              navigate('/');
+            }}
+          >
+            <b>Logout</b>
+          </li>
+        )}
       </ul>
       <div className='block md:hidden cursor-pointer'>
         <MobileNav />

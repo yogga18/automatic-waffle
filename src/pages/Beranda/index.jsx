@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import CardCount from '../../components/Card/CardCount';
 import Layout from '../../components/Layouts';
 import { getAllUsers } from '../../store/users/action';
+import { decLocalStrg } from '../../utils/crypto';
 
 const Beranda = () => {
   const dispatch = useDispatch();
 
   const { getAllUsersReducers } = useSelector((state) => state.usersReducers);
+
+  const localStrg = localStorage.getItem('user');
+  const user = decLocalStrg(localStrg);
 
   const count = getAllUsersReducers.data.length || 0;
 
@@ -41,6 +45,7 @@ const Beranda = () => {
   }, []);
 
   console.log('getAllUsersReducers', getAllUsersReducers);
+  console.log('user', user);
 
   return (
     <Layout>
