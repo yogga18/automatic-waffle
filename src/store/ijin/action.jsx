@@ -6,7 +6,7 @@ import {
   GET_ALL_SURAT_IJIN_FAILURE,
 } from './actionTypes';
 
-export const getAllUsers = () => {
+export const getAllSuratIjin = () => {
   return async (dispatch) => {
     dispatch({
       type: GET_ALL_SURAT_IJIN_REQUEST,

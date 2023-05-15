@@ -3,17 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import CardCount from '../../components/Card/CardCount';
 import Layout from '../../components/Layouts';
 import { getAllUsers } from '../../store/users/action';
+import { getAllSuratIjin } from '../../store/ijin/action';
 import { decLocalStrg } from '../../utils/crypto';
 
 const Beranda = () => {
   const dispatch = useDispatch();
 
   const { getAllUsersReducers } = useSelector((state) => state.usersReducers);
+  const { getAllSuratIjinReducers } = useSelector(
+    (state) => state.suratIjinReducers
+  );
 
   const localStrg = localStorage.getItem('user');
   const user = decLocalStrg(localStrg);
 
   const count = getAllUsersReducers.data.length || 0;
+  const countSuratIjin = getAllSuratIjinReducers.data.length || 0;
 
   const lakiLaki =
     getAllUsersReducers.data.filter((item) => item.gender === 'L') || [];
@@ -30,6 +35,16 @@ const Beranda = () => {
   const userNonAktif =
     getAllUsersReducers.data.filter((item) => item.active === 0) || [];
 
+  const suratJalan =
+    getAllSuratIjinReducers.data.filter((item) => item.category === '1') || [];
+
+  const suratCuti =
+    getAllSuratIjinReducers.data.filter((item) => item.category === '2') || [];
+
+  const suratJalanCount = suratJalan.length || 0;
+
+  const suratCutiCount = suratCuti.length || 0;
+
   const lakiLakiCount = lakiLaki.length || 0;
 
   const perempuanCount = perempuan.length || 0;
@@ -42,9 +57,11 @@ const Beranda = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(getAllSuratIjin());
   }, []);
 
   console.log('getAllUsersReducers', getAllUsersReducers);
+  console.log('getAllSuratIjinReducers', getAllSuratIjinReducers);
   console.log('user', user);
 
   return (
@@ -100,6 +117,26 @@ const Beranda = () => {
             <b className='ml-3'>Monitoring Surat Izin</b>
           </h1>
           <hr />
+          <div className='flex gap-3 flex-wrap m-5'>
+            <CardCount
+              title={'Jumlah Suart'}
+              count={countSuratIjin}
+              url={'/surat-count'}
+              data={getAllSuratIjinReducers.data}
+            />
+            <CardCount
+              title={'Surat Jalan'}
+              count={suratJalanCount}
+              url={'/surat-jalan'}
+              data={suratJalan}
+            />
+            <CardCount
+              title={'Surat Cuti'}
+              count={suratCutiCount}
+              url={'/surat-cuti'}
+              data={suratCuti}
+            />
+          </div>
         </div>
       </div>
     </Layout>

@@ -9,6 +9,7 @@ import SegmentasiUsers from '../pages/Users/SegmentasiUsers';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import SuratIjin from '../pages/SuratIjin';
+import SegmentasiSuratJalan from '../pages/SuratIjin/SegmentasiSuratIjin';
 
 const RoutesIndex = () => {
   return (
@@ -25,6 +26,9 @@ const RoutesIndex = () => {
         <Route path='/users-female' element={<SegmentasiUsers />} />
         <Route path='/users-active' element={<SegmentasiUsers />} />
         <Route path='/users-ijin-belajar' element={<SegmentasiUsers />} />
+        <Route path='/surat-count' element={<SegmentasiSuratJalan />} />
+        <Route path='/surat-jalan' element={<SegmentasiSuratJalan />} />
+        <Route path='/surat-cuti' element={<SegmentasiSuratJalan />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/surat-ijin' element={<SuratIjin />} />
