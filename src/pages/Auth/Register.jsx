@@ -43,8 +43,7 @@ const Register = () => {
     const userIsExist = checkUserIsExist(values);
 
     if (userIsExist.nip === values.nip) {
-      alert('NIP tidak ditemukan');
-      toast.success('NIP yang anda masukkan sudah terdaftar');
+      return toast.success('NIP yang anda masukkan sudah terdaftar');
     } else {
       navigate('/login');
     }

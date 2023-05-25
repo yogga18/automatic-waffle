@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const genderCheck = (gender) => {
   if (gender === 'L') {
     return 'Laki-laki';
@@ -14,4 +16,8 @@ export const isActiveCheck = (active) => {
   } else {
     return 'Ijin Belajar';
   }
+};
+
+export const convertDate = (val, format = 'YYYY-MM-DD') => {
+  return moment(val).locale('id').format(format);
 };

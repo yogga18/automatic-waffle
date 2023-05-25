@@ -119,7 +119,7 @@ const Beranda = () => {
           <hr />
           <div className='flex gap-3 flex-wrap m-5'>
             <CardCount
-              title={'Jumlah Suart'}
+              title={'Jumlah Surat'}
               count={countSuratIjin}
               url={'/surat-count'}
               data={getAllSuratIjinReducers.data}

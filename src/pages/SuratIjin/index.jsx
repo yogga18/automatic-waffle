@@ -1,21 +1,19 @@
-import moment from 'moment';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Layout from '../../components/Layouts';
 import { getAllSuratIjin } from '../../store/ijin/action';
 import * as XLSX from 'xlsx';
+import { useNavigate } from 'react-router-dom';
+import { convertDate } from '../../utils';
 
 const SuratIjin = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { getAllSuratIjinReducers } = useSelector(
     (state) => state.suratIjinReducers
   );
-
-  const momentIndonesia = (data) => {
-    return moment(data).format('ll');
-  };
 
   const exportXlsx = () => {
     if (getAllSuratIjinReducers.data.length === 0) {
@@ -28,8 +26,8 @@ const SuratIjin = () => {
         Nama: item.judul || '-',
         Fakultas: item.category || '-',
         Prodi: item.keterangan || '-',
-        Start: momentIndonesia(item.start) || '-',
-        End: momentIndonesia(item.end) || '-',
+        Start: convertDate(item.start, 'DD MMMM YYYY') || '-',
+        End: convertDate(item.end, 'DD MMMM YYYY') || '-',
       }));
 
       let wb = XLSX.utils.book_new();
@@ -43,23 +41,45 @@ const SuratIjin = () => {
     dispatch(getAllSuratIjin());
   }, []);
 
-  // logging
-  console.log('getAllSuratIjinReducers', getAllSuratIjinReducers);
-
   return (
     <Layout>
-      <div className='py-24'>
-        <div className='m-8'>
+      <div className='my-10'>
+        <div className='flex justify-between px-5 my-16'>
           <button
             onClick={() => {
               exportXlsx();
             }}
+            disabled={getAllSuratIjinReducers.isLoading}
             className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded hover:text-white transition duration-700 ease-in-out'
             title='Exprot to Excel'
           >
             Excel
           </button>
+          <button
+            onClick={() => {
+              navigate('/create-surat');
+            }}
+            disabled={getAllSuratIjinReducers.isLoading}
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:text-white transition duration-700 ease-in-out'
+            title='Create a New User'
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
+              />
+            </svg>
+          </button>
         </div>
+
         <div className='mx-5'>
           {getAllSuratIjinReducers.isLoading ? (
             <p className='text-center'>Loading...</p>
@@ -89,14 +109,18 @@ const SuratIjin = () => {
                       <td className='border px-4 py-2'>{item.nip}</td>
                       <td className='border px-4 py-2'>{item.name}</td>
                       <td className='border px-4 py-2'>
-                        {item.category === '1' ? 'Surat Jalan' : 'Ijin Cuti'}
+                        {item.category === '1'
+                          ? 'Surat Jalan'
+                          : item.category === '2'
+                          ? 'Ijin Cuti'
+                          : '-'}
                       </td>
                       <td className='border px-4 py-2'>{item.keterangan}</td>
                       <td className='border px-4 py-2'>
-                        {momentIndonesia(item.start)}
+                        {convertDate(item.start, 'DD MMMM YYYY')}
                       </td>
                       <td className='border px-4 py-2'>
-                        {momentIndonesia(item.end)}
+                        {convertDate(item.end, 'DD MMMM YYYY')}
                       </td>
                       <td className='border px-4 py-2'>
                         <div className='flex flex-col items-center gap-3'>
@@ -116,7 +140,12 @@ const SuratIjin = () => {
                               />
                             </svg>
                           </button>
-                          <button className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded hover:text-white transition duration-700 ease-in-out'>
+                          <button
+                            className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded hover:text-white transition duration-700 ease-in-out'
+                            onClick={() => {
+                              navigate(`/update-surat/${item.id}`);
+                            }}
+                          >
                             <svg
                               xmlns='http://www.w3.org/2000/svg'
                               fill='none'

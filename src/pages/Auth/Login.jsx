@@ -41,8 +41,7 @@ const Login = () => {
       localStorage.setItem('user', encryptedToken);
       window.location.href = '/beranda';
     } else {
-      alert('User tidak ditemukan');
-      toast.error('NIP tidak ditemukan');
+      return toast.error('NIP tidak ditemukan');
     }
   };
 

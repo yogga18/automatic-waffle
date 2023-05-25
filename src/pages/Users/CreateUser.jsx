@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 const CreateUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const { getUserByIdReducer } = useSelector((state) => state.usersReducers);

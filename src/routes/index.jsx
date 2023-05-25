@@ -10,6 +10,7 @@ import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import SuratIjin from '../pages/SuratIjin';
 import SegmentasiSuratJalan from '../pages/SuratIjin/SegmentasiSuratIjin';
+import CreateSurat from '../pages/SuratIjin/CreateSurat';
 
 const RoutesIndex = () => {
   return (
@@ -24,6 +25,9 @@ const RoutesIndex = () => {
         <Route path='/users-count' element={<SegmentasiUsers />} />
         <Route path='/users-male' element={<SegmentasiUsers />} />
         <Route path='/users-female' element={<SegmentasiUsers />} />
+        <Route path='/surat-ijin' element={<SuratIjin />} />
+        <Route path='/create-surat' element={<CreateSurat />} />
+        <Route path='/update-surat/:id' element={<CreateSurat />} />
         <Route path='/users-active' element={<SegmentasiUsers />} />
         <Route path='/users-ijin-belajar' element={<SegmentasiUsers />} />
         <Route path='/surat-count' element={<SegmentasiSuratJalan />} />
@@ -31,7 +35,6 @@ const RoutesIndex = () => {
         <Route path='/surat-cuti' element={<SegmentasiSuratJalan />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/surat-ijin' element={<SuratIjin />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>
